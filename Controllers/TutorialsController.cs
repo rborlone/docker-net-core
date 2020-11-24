@@ -22,9 +22,12 @@ namespace netCoreExample.Controllers
 
         // GET: api/Tutorials
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tutorial>>> GetTutorial()
+        public async Task<ActionResult<IEnumerable<Tutorial>>> GetTutorial(string title="")
         {
-            return await _context.Tutorials.ToListAsync();
+            if (title != "")
+                return await _context.Tutorials.Where((x) => x.Title == title).ToListAsync();
+            else
+                return await _context.Tutorials.ToListAsync();
         }
 
         // GET: api/Tutorials/5
